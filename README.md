@@ -9,11 +9,12 @@ A simple console-based Todo List manager written in C++, using the STL `std::lis
 - View all todos with their ID, description, and status (Remaining / Completed)
 - Randomly generated task IDs
 - Simple menu-driven console interface
+- Cross-platform screen clearing (Windows, macOS, Linux)
 
 ## Demo
 
 ```
-Todo List Manager - v1.0.0
+Todo List Manager - v1.1.0
 ----------------------------------------------
 
 42 | Buy groceries | Remaining
@@ -30,7 +31,6 @@ Select :
 ## Requirements
 
 - A C++ compiler with C++11 support or later (e.g. MSVC, g++, clang++)
-- Windows (uses `system("cls")` to clear the screen — see [Known Limitations](#known-limitations))
 
 ## Getting Started
 
@@ -60,7 +60,15 @@ Todo IDs are shown in the list on the left-hand column — use that number when 
 
 ## Known Limitations (For current version - v1.0.0)
 
-- **Windows only** — the screen-clearing call (`system("cls")`) doesn't work on macOS/Linux.
 - **No persistence** — all todos are lost when the program exits; nothing is saved to disk.
 - **No delete option** — todos can be added and completed, but not removed.
 - **IDs are random, not guaranteed unique** — collisions are possible with `rand() % 100 + 1`.
+- **No input validation** — non-numeric input for a task ID, or an unrecognized menu option, isn't caught or reported to the user.
+
+## Changelog
+
+**v1.1.0**
+- Replaced the Windows-only system("cls") call with a clearConsole() helper that uses system("clear") on macOS/Linux via #ifdef _WIN32, making the app cross-platform.
+
+**v1.0.0**
+- Initial release: add, complete, and list todos in a console menu loop.
