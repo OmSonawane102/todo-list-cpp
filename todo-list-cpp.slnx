@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="todo-list-cpp/todo-list-cpp.vcxproj" />
+  <Project Path="todo-list-cpp/todo-list-cpp.vcxproj" Id="9196a8ea-91be-45f7-a1f8-bfb5892a4f3d" />
 </Solution>

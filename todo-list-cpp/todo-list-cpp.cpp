@@ -6,6 +6,8 @@
 #include<list> // includes standard list
 #include<ctime> // for time() function 
 
+
+
 class TodoItem {
 private:
 	int id;
@@ -28,13 +30,21 @@ public:
 	void setCompleted(bool val) { completed = val; } // set status of selected task
 };
 
+void clearConsole() {
+#ifdef _WIN32
+	system("cls");
+#else
+	system("clear");
+#endif
+}
+
 int main() {
 	//input variables
 	char input_option;
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.0.0";
+	std::string version = "v1.1.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
 
@@ -42,12 +52,10 @@ int main() {
 
 	todoItems.clear(); // starts program with empty list
 
-	//TodoItem test;
-	//test.create("This is a test todo");
-	//todoItems.push_back(test);
-
 	while (true) {
-		system("cls"); // clear screen in between every loop
+		
+		clearConsole(); // clear screen in between every loop
+
 		std::cout << "Todo List Manager - " << version << std::endl;
 		std::cout << "----------------------------------------------" << std::endl << std::endl;
 
@@ -102,14 +110,3 @@ int main() {
 	return 0;
 
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
