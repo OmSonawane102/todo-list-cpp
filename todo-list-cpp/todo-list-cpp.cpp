@@ -19,7 +19,8 @@ public:
 	~TodoItem() = default;
 
 	bool create(std::string new_description) {
-		id = rand() % 100 + 1; // generates random number between 1 and 100
+		static int next_id = 1; // only initialize once
+		id = next_id++; // post increament so that the first id remains '1'
 		description = new_description;
 		return true;
 	}
@@ -44,11 +45,9 @@ int main() {
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.1.0";
+	std::string version = "v1.2.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
-
-	srand(time(NULL)); // ensures that ID is different every time program runs
 
 	todoItems.clear(); // starts program with empty list
 
