@@ -4,9 +4,6 @@
 #include <iostream>
 #include<string>
 #include<list> // includes standard list
-#include<ctime> // for time() function 
-
-
 
 class TodoItem {
 private:
