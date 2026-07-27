@@ -6,14 +6,16 @@ A simple console-based Todo List manager written in C++, using the STL `std::lis
 
 - Add a new todo with a text description
 - Mark a todo as completed by its ID
+- Delete a todo by its ID
 - View all todos with their ID, description, and status (Remaining / Completed)
+- Feedback message after completing or deleting an ID that foes not exist
 - Simple menu-driven console interface
 - Cross-platform screen clearing (Windows, macOS, Linux)
 
 ## Demo
 
 ```
-Todo List Manager - v1.2.0
+Todo List Manager - v1.3.0
 ----------------------------------------------
 
 42 | Buy groceries | Remaining
@@ -22,6 +24,7 @@ Todo List Manager - v1.2.0
 ----------------------------------------------
 
 ~ [a]dd a TODO
+~ [d]elete a TODO
 ~ [c]omplete a TODO
 ~ [q]uit
 Select :
@@ -52,18 +55,23 @@ On launch, you'll see a menu with three options:
 | Key | Action |
 |-----|--------|
 | `a` | Add a new todo (prompts for a description) |
+| `d` | Delete a todo (prompts for its ID)
 | `c` | Mark a todo as completed (prompts for its ID) |
 | `q` | Quit the program |
 
-Todo IDs are shown in the list on the left-hand column — use that number when completing a task.
+Todo IDs are shown in the list on the left-hand column — use that number when completing or deleting a task.IDs are assigned sequentially starting from 1 and are guaranteed unique for the lifetime of a single run. If you enter an ID that doesn't exist for c or d, the app now tells you and waits for you to press Enter before returning to the menu.
 
 ## Known Limitations (For current version - v1.0.0)
 
 - **No persistence** — all todos are lost when the program exits; nothing is saved to disk.
-- **No delete option** — todos can be added and completed, but not removed.
 - **No input validation** — non-numeric input for a task ID, or an unrecognized menu option, isn't caught or reported to the user.
 
 ## Changelog
+
+**v1.3.0**
+- Added a [d]elete option to remove a todo by ID, using std::list::erase.
+- Added "not found" feedback messages for both complete and delete when the entered ID doesn't match any task, instead of silently doing nothing.
+- Marked the class getters (getID, getDescription, isCompleted) as const, since they don't modify the object.
 
 **v1.2.0**
 - Replaced random task IDs (rand() % 100 + 1) with a sequential counter (static int next_id), guaranteeing every ID is unique instead of relying on chance. IDs now start at 1 and increment predictably.
