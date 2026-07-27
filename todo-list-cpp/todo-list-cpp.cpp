@@ -22,9 +22,9 @@ public:
 		return true;
 	}
 
-	int getID() { return id; }
-	std::string getDescription() { return description; }
-	bool isCompleted() { return completed; }
+	int getID() const { return id; }
+	std::string getDescription() const { return description; }
+	bool isCompleted() const { return completed; }
 	void setCompleted(bool val) { completed = val; } // set status of selected task
 };
 
@@ -42,7 +42,7 @@ int main() {
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.2.0";
+	std::string version = "v1.3.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
 
@@ -68,6 +68,7 @@ int main() {
 		}
 		std::cout << "----------------------------------------------" << std::endl << std::endl;
 		std::cout << "~ [a]dd a TODO" << std::endl;
+		std::cout << "~ [d]elete a TODO" << std::endl;
 		std::cout << "~ [c]omplete a TODO" << std::endl;
 		std::cout << "~ [q]uit" << std::endl;
 
@@ -90,16 +91,43 @@ int main() {
 			std::cout << "Enter ID of completed task : ";
 			std::cin >> input_id;
 
+			bool found = false;
 			for (it = todoItems.begin(); it != todoItems.end(); it++) {
 				if (input_id == it->getID()) {
 					it->setCompleted(true);
+					found = true;
 					break;
 				}
+			}
+			if (!found) {
+				std::cout << "Invalid ID no task found." << std::endl;
+				std::cout << "Press enter to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.get();
+			}
+		}else if (input_option == 'd') {
+			std::cout << "Enter ID to delete TODO : ";
+			std::cin >> input_id;
+
+			bool found = false;
+			for (it = todoItems.begin(); it != todoItems.end(); it++) {
+				if (input_id == it->getID()) {
+					todoItems.erase(it); // don't remove break after this
+					found = true;
+					break;
+				}
+			}
+			if (!found) {
+				std::cout << "Invalid ID no task found." << std::endl;
+				std::cout << "Press enter to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.get();
 			}
 		}
 		//else {
 		//	std::cout << "Invalid Option..." << std::endl;
 		//	std::cout << "Press enter to continue!" << std::endl;
+		//	std::cin.ignore();
 		//	std::cin.get();
 		//}
 	}
