@@ -37,12 +37,20 @@ void clearConsole() {
 }
 
 int main() {
+	// Basic ANSI escape codes
+	const std::string RESET = "\033[0m";
+	const std::string BOLD = "\033[1m";
+	const std::string RED = "\033[31m";
+	const std::string GREEN = "\033[32m";
+	const std::string YELLOW = "\033[33m";
+	const std::string BLUE = "\033[34m";
+
 	//input variables
 	char input_option;
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.3.0";
+	std::string version = "v1.4.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
 
@@ -52,7 +60,7 @@ int main() {
 		
 		clearConsole(); // clear screen in between every loop
 
-		std::cout << "Todo List Manager - " << version << std::endl;
+		std::cout << BOLD << "Todo List Manager - " << version << RESET << std::endl;
 		std::cout << "----------------------------------------------" << std::endl << std::endl;
 
 		// prints all tasks to console 
@@ -67,10 +75,10 @@ int main() {
 			std::cout << "Add Your First TODO :	" << std::endl;
 		}
 		std::cout << "----------------------------------------------" << std::endl << std::endl;
-		std::cout << "~ [a]dd a TODO" << std::endl;
-		std::cout << "~ [d]elete a TODO" << std::endl;
-		std::cout << "~ [c]omplete a TODO" << std::endl;
-		std::cout << "~ [q]uit" << std::endl;
+		std::cout << BLUE << "~ [a]dd a TODO" << RESET << std::endl;
+		std::cout << RED << "~ [d]elete a TODO" << RESET << std::endl;
+		std::cout << GREEN << "~ [c]omplete a TODO" << RESET << std::endl;
+		std::cout << YELLOW << "~ [q]uit" << RESET << std::endl;
 
 		std::cout << "Select : ";
 
