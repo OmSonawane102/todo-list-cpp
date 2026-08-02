@@ -9,13 +9,14 @@ A simple console-based Todo List manager written in C++, using the STL `std::lis
 - Delete a todo by its ID
 - View all todos with their ID, description, and status (Remaining / Completed)
 - Feedback message after completing or deleting an ID that foes not exist
+- Color-coded menu options and bold header for easier readability
 - Simple menu-driven console interface
 - Cross-platform screen clearing (Windows, macOS, Linux)
 
 ## Demo
 
 ```
-Todo List Manager - v1.3.0
+Todo List Manager - v1.4.0
 ----------------------------------------------
 
 42 | Buy groceries | Remaining
@@ -23,12 +24,14 @@ Todo List Manager - v1.3.0
 
 ----------------------------------------------
 
-~ [a]dd a TODO
-~ [d]elete a TODO
-~ [c]omplete a TODO
-~ [q]uit
+~ [a]dd a TODO          (blue)
+~ [d]elete a TODO       (red)
+~ [c]omplete a TODO     (green)
+~ [q]uit                (yellow)
 Select :
 ```
+
+Note: colors won't render in plain text — running the program in an actual terminal will show the menu options in blue, red, green, and yellow respectively, with the header in bold.
 
 ## Requirements
 
@@ -52,21 +55,25 @@ g++ -std=c++11 -o todo-list-cpp todo-list-cpp.cpp
 
 On launch, you'll see a menu with three options:
 
-| Key | Action |
-|-----|--------|
-| `a` | Add a new todo (prompts for a description) |
-| `d` | Delete a todo (prompts for its ID)
-| `c` | Mark a todo as completed (prompts for its ID) |
-| `q` | Quit the program |
+| Key | Action | Color |
+|-----|--------|-------|
+| `a` | Add a new todo (prompts for a description) | Blue |
+| `d` | Delete a todo (prompts for its ID) | Red |
+| `c` | Mark a todo as completed (prompts for its ID) | Green |
+| `q` | Quit the program | Yellow |
 
 Todo IDs are shown in the list on the left-hand column — use that number when completing or deleting a task.IDs are assigned sequentially starting from 1 and are guaranteed unique for the lifetime of a single run. If you enter an ID that doesn't exist for c or d, the app now tells you and waits for you to press Enter before returning to the menu.
 
 ## Known Limitations (For current version - v1.0.0)
-
+- **ANSI colors may not render on older Windows terminals.** Legacy cmd.exe requires ENABLE_VIRTUAL_TERMINAL_PROCESSING to be explicitly enabled for ANSI escape codes to display correctly; modern Windows Terminal, PowerShell, macOS Terminal, and most Linux terminals support them by default. On unsupported terminals, the raw escape codes may appear as garbled text instead of color.
 - **No persistence** — all todos are lost when the program exits; nothing is saved to disk.
 - **No input validation** — non-numeric input for a task ID, or an unrecognized menu option, isn't caught or reported to the user.
 
 ## Changelog
+
+**v1.4.0**
+- Added ANSI color codes for a bold header and color-coded menu options (blue a, red d, green c, yellow q) to improve readability.
+- Added an inline comment on the erase() call clarifying that the following break must not be removed without also reassigning the iterator.
 
 **v1.3.0**
 - Added a [d]elete option to remove a todo by ID, using std::list::erase.
