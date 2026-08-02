@@ -2,8 +2,9 @@
 //
 
 #include <iostream>
-#include<string>
-#include<list> // includes standard list
+#include <string>
+#include <list> // includes standard list
+#include <iomanip> // includes setw() for specifying width before or after
 
 class TodoItem {
 private:
@@ -50,7 +51,7 @@ int main() {
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.4.0";
+	std::string version = "v1.5.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
 
@@ -61,20 +62,20 @@ int main() {
 		clearConsole(); // clear screen in between every loop
 
 		std::cout << BOLD << "Todo List Manager - " << version << RESET << std::endl;
-		std::cout << "----------------------------------------------" << std::endl << std::endl;
+		std::cout << "------------------------------------------------------------" << std::endl << std::endl;
 
 		// prints all tasks to console 
 		for (it = todoItems.begin(); it != todoItems.end(); it++) {
 
 			std::string completed = it->isCompleted() ? "Completed" : "Remaining";
-			std::cout << it->getID() << " | " << it->getDescription()<< " | " << completed << std::endl;
+			std::cout << std::right <<  std::setw(4) << it->getID() << " | " << std::left << std::setw(40) << it->getDescription()<< " | " << completed << std::endl;
 
 		}
 		// prints if list is empty
 		if (todoItems.empty()) {
 			std::cout << "Add Your First TODO :	" << std::endl;
 		}
-		std::cout << "----------------------------------------------" << std::endl << std::endl;
+		std::cout << "------------------------------------------------------------" << std::endl << std::endl;
 		std::cout << BLUE << "~ [a]dd a TODO" << RESET << std::endl;
 		std::cout << RED << "~ [d]elete a TODO" << RESET << std::endl;
 		std::cout << GREEN << "~ [c]omplete a TODO" << RESET << std::endl;
