@@ -5,6 +5,7 @@
 #include <string>
 #include <list> // includes standard list
 #include <iomanip> // includes setw() for specifying width before or after
+#include <climits> // includes std::numeric_limits
 
 class TodoItem {
 private:
@@ -37,6 +38,23 @@ void clearConsole() {
 #endif
 }
 
+// Helper function to validate integer input : 
+int validIntInput(const std::string& prompt) {
+	int value;
+	while (true) {
+		std::cout << prompt;
+		std::cin >> value;
+		if (std::cin.fail()) {
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			std::cout << "Invalid input, please enter a number " << std::endl;
+		}else{
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			return value;
+		}
+	}
+}
+
 int main() {
 	// Basic ANSI escape codes
 	const std::string RESET = "\033[0m";
@@ -51,7 +69,7 @@ int main() {
 	int input_id;
 	std::string input_description;
 
-	std::string version = "v1.5.0";
+	std::string version = "v1.6.0";
 	std::list<TodoItem> todoItems;
 	std::list<TodoItem>::iterator it; // declaring iterator;
 
@@ -84,6 +102,7 @@ int main() {
 		std::cout << "Select : ";
 
 		std::cin >> input_option;
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		
 		if (input_option == 'q') {
 			std::cout << "Exited successfully..." << std::endl;
@@ -91,14 +110,12 @@ int main() {
 		}else if(input_option == 'a') {
 			std::cout << "Add a new TODO description : ";
 			std::cin.clear(); // clear input buffer beforehand
-			std::cin.ignore(); // ignores the first return so that our description is non-empty
-			std::getline(std::cin, input_description); // accepts evrthing in a line including spaces
+			std::getline(std::cin, input_description); // accepts everthing in a line including spaces
 			TodoItem newItem;
 			newItem.create(input_description);
 			todoItems.push_back(newItem);
 		}else if(input_option == 'c'){
-			std::cout << "Enter ID of completed task : ";
-			std::cin >> input_id;
+			input_id = validIntInput("Enter ID of completed task : ");
 
 			bool found = false;
 			for (it = todoItems.begin(); it != todoItems.end(); it++) {
@@ -111,34 +128,35 @@ int main() {
 			if (!found) {
 				std::cout << "Invalid ID no task found." << std::endl;
 				std::cout << "Press enter to continue..." << std::endl;
-				std::cin.ignore();
 				std::cin.get();
 			}
 		}else if (input_option == 'd') {
-			std::cout << "Enter ID to delete TODO : ";
-			std::cin >> input_id;
+			if (todoItems.empty()) {
+				std::cout << "Nothing to delete — your list is empty." << std::endl;
+				std::cout << "Press enter to continue..." << std::endl;
+				std::cin.get();
+			}else {
+				input_id = validIntInput("Enter ID to delete TODO : ");
 
-			bool found = false;
-			for (it = todoItems.begin(); it != todoItems.end(); it++) {
-				if (input_id == it->getID()) {
-					todoItems.erase(it); // don't remove break after this
-					found = true;
-					break;
+				bool found = false;
+				for (it = todoItems.begin(); it != todoItems.end(); it++) {
+					if (input_id == it->getID()) {
+						todoItems.erase(it); // don't remove break after this
+						found = true;
+						break;
+					}
+				}
+				if (!found) {
+					std::cout << "Invalid ID no task found." << std::endl;
+					std::cout << "Press enter to continue..." << std::endl;
+					std::cin.get();
 				}
 			}
-			if (!found) {
-				std::cout << "Invalid ID no task found." << std::endl;
-				std::cout << "Press enter to continue..." << std::endl;
-				std::cin.ignore();
-				std::cin.get();
-			}
+		}else {
+			std::cout << "Invalid Option..." << std::endl;
+			std::cout << "Press enter to continue!" << std::endl;
+			std::cin.get();
 		}
-		//else {
-		//	std::cout << "Invalid Option..." << std::endl;
-		//	std::cout << "Press enter to continue!" << std::endl;
-		//	std::cin.ignore();
-		//	std::cin.get();
-		//}
 	}
 	return 0;
 
