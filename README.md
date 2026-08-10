@@ -1,4 +1,4 @@
-# Todo List CPP
+# Todo List C++
 
 A simple console-based Todo List manager written in C++, using the STL `std::list` container. Built as a first full C++ project to practice classes, iterators, and basic console I/O.
 
@@ -21,7 +21,7 @@ A simple console-based Todo List manager written in C++, using the STL `std::lis
 ## Demo
 
 ```
-Todo List Manager - v1.4.0
+Todo List Manager - v1.6.0
 ------------------------------------------------------------
 
    1 | Buy groceries                           | Remaining
